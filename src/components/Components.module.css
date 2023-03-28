@@ -1,0 +1,12 @@
+.Cast {
+	padding: 15px;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 10px;
+}
+
+.ActorPhoto {
+	width: 50px;
+	height: 100px;
+	object-fit: cover;
+}
