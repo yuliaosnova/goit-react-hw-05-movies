@@ -1,4 +1,4 @@
-import { all } from 'axios';
+
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import * as API from '../servises/api';
@@ -23,15 +23,15 @@ export const Cast = () => {
       });
   }, [movieId]);
 
-  const showCast = () => {
-	if (cast.length > 0) return true;
-  }
+//   const showCast = () => {
+// 	if (cast.length > 0) return true;
+//   }
 
   return (
     <>
       <div className={css.Cast}>
 		cast
-        {/* {showCast && cast.map(actor => (
+        {cast.map(actor => (
           <div>
             <img
               className={css.ActorPhoto}
@@ -40,7 +40,7 @@ export const Cast = () => {
             ></img>
             <p>{actor.name}</p>
           </div>
-        ))} */}
+        ))}
       </div>
     </>
   );
