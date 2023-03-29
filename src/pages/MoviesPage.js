@@ -1,35 +1,50 @@
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams, useLocation } from 'react-router-dom';
 import { SearchBar } from 'components/SearchBar';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import * as API from '../servises/api';
 
 const Movies = () => {
-  const [query, setQuery] = useState('');
   const [moviesBySeach, setMoviesBySeach] = useState([]);
   const [page, setPage] = useState(1);
 
-  async function changeQuery(searchQuery) {
+
+  const location = useLocation();
+
+
+  const [searchParams, setSearchParams] = useSearchParams();
+  const query = searchParams.get('query') ?? '';
+
+
+
+
+
+
+
+
+  const changeQuery = (searchQuery) => {
+	console.log(searchQuery);
+
     if (searchQuery === query) return;
 
     setMoviesBySeach([]);
     setPage(1);
-     setQuery(searchQuery);
-	  await getMovies();
-  }
+    setSearchParams({ query: searchQuery });
+  };
 
-  function getMovies() {
+  useEffect(() => {
     API.fetchSerchedMovies(query, page)
       .then(resp => {
-        if (resp.length === 0) {
-          alert('no matching results');
-        }
+        //   if (resp.length === 0) {
+        //     alert('no matching results');
+        //   }
 
-        setMoviesBySeach(moviesBySeach => [...moviesBySeach, ...resp]);
+      //   setMoviesBySeach(moviesBySeach => [...moviesBySeach, ...resp]);
+		setMoviesBySeach(resp);
       })
       .catch(error => {
         console.log(error);
       });
-  }
+  }, [page, query]);
 
   return (
     <div>
@@ -37,7 +52,7 @@ const Movies = () => {
       <ul>
         {moviesBySeach.map(item => (
           <li key={item.id}>
-            <Link>{item.title}</Link>
+            <Link to={`/movies/${item.id}`} state={{ from: location }}>{item.title}</Link>
           </li>
         ))}
       </ul>

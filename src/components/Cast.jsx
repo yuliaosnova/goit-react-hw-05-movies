@@ -1,13 +1,12 @@
-
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import * as API from '../servises/api';
 import css from './Components.module.css';
+import { BsFillPersonFill } from 'react-icons/bs';
 
 export const Cast = () => {
   const [cast, setCast] = useState([]);
   const { movieId } = useParams();
-  // console.log(movieId);
 
   useEffect(() => {
     API.fetchMovieCast(movieId)
@@ -15,7 +14,7 @@ export const Cast = () => {
         //   if (movies.hits.length === 0) {
         //     alert('no matching results');
         //   }
-        console.log(response);
+        //   console.log(response);
         setCast(response);
       })
       .catch(error => {
@@ -23,25 +22,25 @@ export const Cast = () => {
       });
   }, [movieId]);
 
-//   const showCast = () => {
-// 	if (cast.length > 0) return true;
-//   }
-
   return (
     <>
-      <div className={css.Cast}>
-		cast
+      <ul className={css.Cast}>
         {cast.map(actor => (
-          <div>
-            <img
-              className={css.ActorPhoto}
-              src={`https://image.tmdb.org/t/p/w1920_and_h800_multi_faces/${actor.profile_path}`}
-              alt=""
-            ></img>
+          <li className={css.CastList} key={actor.cast_id}>
+            {actor.profile_path ? (
+              <img
+                className={css.ActorPhoto}
+                src={`https://image.tmdb.org/t/p/w1920_and_h800_multi_faces/${actor.profile_path}`}
+                alt=""
+              ></img>
+            ) : (
+              <BsFillPersonFill style={{ fontSize: '50px' }} fill="blue" />
+            )}
             <p>{actor.name}</p>
-          </div>
+            <p>Character: {actor.character}</p>
+          </li>
         ))}
-      </div>
+      </ul>
     </>
   );
 };
