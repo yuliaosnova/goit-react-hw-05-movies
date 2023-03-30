@@ -1,8 +1,8 @@
-import { Movie } from 'components/Movie';
+import { Movie } from 'components/Movie/Movie';
 import { Suspense, useEffect, useRef, useState } from 'react';
 import { Link, Outlet, useParams, useLocation } from 'react-router-dom';
 import * as API from '../servises/api';
-import css from '../components/Components.module.css';
+import css from './Pages.module.css';
 
 const MovieDetails = () => {
   const [film, setFilm] = useState({});

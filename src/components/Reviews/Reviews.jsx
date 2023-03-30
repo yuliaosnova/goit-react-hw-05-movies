@@ -1,11 +1,10 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import * as API from '../servises/api';
-import css from './Components.module.css';
+import * as API from '../../servises/api';
 
 const Reviews = () => {
   const [reviews, setReviews] = useState();
-  const [page, ] = useState(1);
+  const [page] = useState(1);
   const [showMessage, setShowMessage] = useState(false);
 
   const { movieId } = useParams();
@@ -13,7 +12,7 @@ const Reviews = () => {
   useEffect(() => {
     API.fetchMovieReviews(movieId, page)
       .then(responce => {
-        console.log(responce);
+      //   console.log(responce);
         setReviews(responce);
         if (responce.length === 0) setShowMessage(true);
       })
@@ -27,19 +26,18 @@ const Reviews = () => {
       {!reviews ? (
         ''
       ) : (
-        <ul className={css.Reviews}>
+        <ul>
           {reviews.map(review => (
-            <li className={css.ReviewsList} key={review.id}>
+            <li key={review.id}>
               <h3>Author: {review.author}</h3>
               <p>C{review.content}</p>
             </li>
           ))}
         </ul>
       )}
-      {showMessage && 'We don\'t  have any reviews for this movie'}
+      {showMessage && "We don't have any reviews for this movie"}
     </>
   );
 };
-
 
 export default Reviews;

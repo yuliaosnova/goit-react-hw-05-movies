@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import PropTypes from 'prop-types';
 
 export const SearchBar = ({ onSubmit }) => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -11,11 +12,7 @@ export const SearchBar = ({ onSubmit }) => {
     e.preventDefault();
     console.log('query:', searchQuery);
 
-   //  if (searchQuery === '') {
-   //    return;
-   //  }
     onSubmit(searchQuery);
-    // setSearchQuery('');
   };
 
   return (
@@ -23,7 +20,6 @@ export const SearchBar = ({ onSubmit }) => {
       <input
         className=""
         type="text"
-      //   value={searchQuery}
         autoFocus
         onChange={handleChange}
       ></input>
@@ -31,4 +27,8 @@ export const SearchBar = ({ onSubmit }) => {
     </form>
   );
 };
+
+SearchBar.propTypes = {
+	onSubmit: PropTypes.func.isRequired,
+ };
  

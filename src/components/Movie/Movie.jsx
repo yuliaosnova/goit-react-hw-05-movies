@@ -1,4 +1,5 @@
-import css from './Components.module.css';
+import css from './Movie.module.css';
+import PropTypes from 'prop-types';
 
 export const Movie = ({ film, year }) => {
   const genres = film.genres;
@@ -6,12 +7,12 @@ export const Movie = ({ film, year }) => {
     <div className={css.Film}>
       <img
         className={css.Image}
-        //   src={
-        //     film.backdrop_path
-        //       ? `https://image.tmdb.org/t/p/w1920_and_h800_multi_faces/${film.backdrop_path}`
-        //       : 'https://upload.wikimedia.org/wikipedia/commons/6/65/No-Image-Placeholder.svg'
-        //   }
-        src={`https://image.tmdb.org/t/p/w1920_and_h800_multi_faces/${film.backdrop_path}`}
+          src={
+            film.backdrop_path
+              ? `https://image.tmdb.org/t/p/w1920_and_h800_multi_faces/${film.backdrop_path}`
+              : 'https://upload.wikimedia.org/wikipedia/commons/6/65/No-Image-Placeholder.svg'
+          }
+      //   src={`https://image.tmdb.org/t/p/w1920_and_h800_multi_faces/${film.backdrop_path}`}
         alt=""
       ></img>
       <div className={css.Info}>
@@ -32,3 +33,9 @@ export const Movie = ({ film, year }) => {
     </div>
   );
 };
+
+
+Movie.propTypes = {
+	film: PropTypes.object.isRequired,
+	year: PropTypes.string.isRequired
+ };

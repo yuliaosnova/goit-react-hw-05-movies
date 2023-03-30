@@ -1,0 +1,12 @@
+.AdditionalInfoList {
+	padding-bottom: 10px;
+	box-shadow: 0 7px 17px -16px rgba(0, 0, 0, 1);
+}
+
+.AdditionalInfo {
+	padding: 5px;
+}
+
+.GoBackBtn {
+	margin-bottom: 10px;
+}

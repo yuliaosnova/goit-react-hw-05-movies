@@ -1,5 +1,5 @@
 import { Outlet, NavLink } from 'react-router-dom';
-import css from './Components.module.css';
+import css from './Layout.module.css';
 import styled from 'styled-components';
 import { Suspense } from 'react';
 
@@ -13,7 +13,6 @@ const Link = styled(NavLink)`
   &.active {
     color: red;
     text-decoration: underline;
-    /* background-color: orangered; */
   }
 `;
 

@@ -1,21 +1,19 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import * as API from '../servises/api';
-import css from './Components.module.css';
+import * as API from '../../servises/api';
+import css from './Cast.module.css';
 import { BsFillPersonFill } from 'react-icons/bs';
 
 const Cast = () => {
   const [cast, setCast] = useState([]);
   const { movieId } = useParams();
+  const [showMessage, setShowMessage] = useState(false);
 
   useEffect(() => {
     API.fetchMovieCast(movieId)
-      .then(response => {
-        //   if (movies.hits.length === 0) {
-        //     alert('no matching results');
-        //   }
-        //   console.log(response);
-        setCast(response);
+      .then(responce => {
+        setCast(responce);
+		  if (responce.length === 0) setShowMessage(true);
       })
       .catch(error => {
         console.log(error);
@@ -41,6 +39,7 @@ const Cast = () => {
           </li>
         ))}
       </ul>
+		{showMessage && "We don't have any information about cast"}
     </>
   );
 };

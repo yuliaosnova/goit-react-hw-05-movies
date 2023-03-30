@@ -1,9 +1,9 @@
-import { MoviesList } from 'components/MoviesList';
+import { MoviesList } from 'components/MoviestList/MoviesList';
 import { useState, useEffect } from 'react';
 import * as API from '../servises/api';
 
 const Home = () => {
-  const [movies, setMovies] = useState([1, 2, 3]);
+  const [movies, setMovies] = useState([]);
 
   useEffect(() => {
     API.fetchPopularMovies()
@@ -11,7 +11,7 @@ const Home = () => {
         //   if (movies.hits.length === 0) {
         //     alert('no matching results');
         //   }
-        console.log(response.results);
+      //   console.log(response.results);
         setMovies(response.results);
       })
       .catch(error => {

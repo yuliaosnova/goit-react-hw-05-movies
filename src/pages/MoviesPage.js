@@ -1,11 +1,12 @@
 import { Link, useSearchParams, useLocation } from 'react-router-dom';
-import { SearchBar } from 'components/SearchBar';
+import { SearchBar } from 'components/SearchBar/SearchBar';
 import { useEffect, useState } from 'react';
 import * as API from '../servises/api';
 
 const Movies = () => {
   const [moviesBySeach, setMoviesBySeach] = useState([]);
   const [page, setPage] = useState(1);
+  const [showMessage, setShowMessage] = useState(false);
 
   const location = useLocation();
 
@@ -13,15 +14,13 @@ const Movies = () => {
   const query = searchParams.get('query') ?? '';
 
   const changeQuery = searchQuery => {
-    console.log(searchQuery);
+   //  console.log(searchQuery);
 
     if (searchQuery === query) return;
 
-	 if (searchQuery === "") {
-		return setSearchParams({});
-	 }
-
-
+    if (searchQuery === '') {
+      return setSearchParams({});
+    }
 
     setMoviesBySeach([]);
     setPage(1);
@@ -29,12 +28,15 @@ const Movies = () => {
   };
 
   useEffect(() => {
+    if (query === '') {
+      setShowMessage(false);
+      return; //перший рендер
+    }
+
     API.fetchSerchedMovies(query, page)
       .then(resp => {
-        //   if (resp.length === 0) {
-        //     alert('no matching results');
-        //   }
-
+        setShowMessage(false);
+        if (resp.length === 0) setShowMessage(true);
         //   setMoviesBySeach(moviesBySeach => [...moviesBySeach, ...resp]);
         setMoviesBySeach(resp);
       })
@@ -55,6 +57,7 @@ const Movies = () => {
           </li>
         ))}
       </ul>
+      {showMessage && 'No matching results'}
     </div>
   );
 };
