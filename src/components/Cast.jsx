@@ -4,7 +4,7 @@ import * as API from '../servises/api';
 import css from './Components.module.css';
 import { BsFillPersonFill } from 'react-icons/bs';
 
-export const Cast = () => {
+const Cast = () => {
   const [cast, setCast] = useState([]);
   const { movieId } = useParams();
 
@@ -44,3 +44,5 @@ export const Cast = () => {
     </>
   );
 };
+
+export default Cast;

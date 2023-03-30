@@ -1,6 +1,5 @@
 import { Movie } from 'components/Movie';
-import { GoBack } from 'components/GoBack';
-import { useEffect, useState } from 'react';
+import { Suspense, useEffect, useRef, useState } from 'react';
 import { Link, Outlet, useParams, useLocation } from 'react-router-dom';
 import * as API from '../servises/api';
 import css from '../components/Components.module.css';
@@ -11,15 +10,17 @@ const MovieDetails = () => {
   const { movieId } = useParams();
 
   const location = useLocation();
-//   const backLinkHref = location.state.from ?? "/movies";
+  const backLinkLocationRef = useRef(location.state?.from ?? '/movies');
 
   useEffect(() => {
     API.fetchMovieDetails(movieId)
       .then(response => {
         setFilm(response);
 
-        const year = cutDate(film.release_date);
-        setReleaseYear(year);
+        if (film.release_date) {
+          const year = cutDate(film.release_date);
+          setReleaseYear(year);
+        }
       })
       .catch(error => {
         console.log(error);
@@ -35,8 +36,11 @@ const MovieDetails = () => {
 
   return (
     <>
-	 	<Link to={location.state?.from ?? "/movies"}><button className={css.GoBackBtn}>← Go back</button></Link>
-      
+      {/* ===========optional chaining */}
+      <Link to={backLinkLocationRef.current}>
+        <button className={css.GoBackBtn}>← Go back</button>
+      </Link>
+
       <Movie film={film} year={releaseYear} />
       <div>
         <p>Additional information</p>
@@ -53,7 +57,9 @@ const MovieDetails = () => {
           </li>
         </ul>
       </div>
-      <Outlet />
+      <Suspense fallback={<div>LOADING...</div>}>
+        <Outlet />
+      </Suspense>
     </>
   );
 };

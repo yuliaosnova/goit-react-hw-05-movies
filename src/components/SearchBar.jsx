@@ -11,9 +11,9 @@ export const SearchBar = ({ onSubmit }) => {
     e.preventDefault();
     console.log('query:', searchQuery);
 
-    if (searchQuery === '') {
-      return;
-    }
+   //  if (searchQuery === '') {
+   //    return;
+   //  }
     onSubmit(searchQuery);
     // setSearchQuery('');
   };
@@ -31,3 +31,4 @@ export const SearchBar = ({ onSubmit }) => {
     </form>
   );
 };
+ 

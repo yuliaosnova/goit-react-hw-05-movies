@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import * as API from '../servises/api';
 import css from './Components.module.css';
 
-export const Reviews = () => {
+const Reviews = () => {
   const [reviews, setReviews] = useState();
   const [page, ] = useState(1);
   const [showMessage, setShowMessage] = useState(false);
@@ -40,3 +40,6 @@ export const Reviews = () => {
     </>
   );
 };
+
+
+export default Reviews;

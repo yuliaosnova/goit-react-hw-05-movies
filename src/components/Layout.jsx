@@ -1,6 +1,7 @@
 import { Outlet, NavLink } from 'react-router-dom';
 import css from './Components.module.css';
 import styled from 'styled-components';
+import { Suspense } from 'react';
 
 const Link = styled(NavLink)`
   padding: 8px 16px;
@@ -21,14 +22,20 @@ export const Layout = () => {
     <>
       <header className={css.Header}>
         <nav>
-          <Link to="/" className={css.NavItem}>Home</Link>
-          <Link to="/movies" className={css.NavItem}>Movies</Link>
+          <Link to="/" className={css.NavItem}>
+            Home
+          </Link>
+          <Link to="/movies" className={css.NavItem}>
+            Movies
+          </Link>
         </nav>
       </header>
       <main>
-        <Outlet />
+        <Suspense fallback={<div>Loading...</div>}>
+          <Outlet />
+        </Suspense>
       </main>
-		<footer></footer>
+      <footer></footer>
     </>
   );
 };
