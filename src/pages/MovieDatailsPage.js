@@ -9,6 +9,7 @@ const MovieDetails = () => {
   const [releaseYear, setReleaseYear] = useState('');
   const { movieId } = useParams();
 
+
   const location = useLocation();
   const backLinkLocationRef = useRef(location.state?.from ?? '/movies');
 
@@ -41,7 +42,8 @@ const MovieDetails = () => {
         <button className={css.GoBackBtn}>← Go back</button>
       </Link>
 
-      <Movie film={film} year={releaseYear} />
+		{(Object.keys(film).length > 0) && <Movie film={film} year={releaseYear} />}
+      
       <div>
         <p>Additional information</p>
         <ul className={css.AdditionalInfoList}>
